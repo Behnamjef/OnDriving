@@ -115,7 +115,7 @@ public class Shop : MonoBehaviour
         else
         {
             var carPrice = UnlockManager.Instance.GetCar(_currentCarType).UnlockPrice;
-            if (true)//carPrice <= PlayerPrefs.GetInt("LevelCoin", 0))
+            if (carPrice <= PlayerPrefs.GetInt("LevelCoin", 0))
             {
                 Coins -= carPrice;
 

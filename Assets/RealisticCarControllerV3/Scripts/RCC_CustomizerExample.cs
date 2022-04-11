@@ -28,6 +28,7 @@ public class RCC_CustomizerExample : MonoBehaviour {
 	public GameObject configurationMenu;
 	public GameObject steeringAssistancesMenu;
 	public GameObject colorsMenu;
+	public GameObject rewardMenu;
 
 	[Header("UI Sliders")]
 	public Slider frontCamber;
