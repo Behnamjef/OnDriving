@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class Shop : MonoBehaviour
 {
-
     public static Shop Instance { set; get; }
 
     public Transform Cars;
 
-    GameObject[] Vehicales;
+    [SerializeField] private ShopCar[] ShopCars;
 
-    int CurrentIndex;
-
-    public int[] CarPrices;
+    private CarType _currentCarType;
+    private int _currentCarIndex;
 
     public Text ShopText;
 
@@ -25,78 +24,60 @@ public class Shop : MonoBehaviour
     {
         Instance = this;
 
-        PlayerPrefs.SetInt("UnlockCar" + CurrentIndex, 1);
-
-        CurrentIndex = PlayerPrefs.GetInt("CurrentIndex", PlayerPrefs.GetInt("SelectedCar",0));
-
-        Vehicales = new GameObject[Cars.transform.childCount];
-
+        _currentCarType = UnlockManager.Instance.GetSelectedCarType();
+        _currentCarIndex = ShopCars.ToList().FindIndex(c => c.CarType == _currentCarType);
 
         UpdatePrices();
-      
     }
 
     void Start()
     {
         Coins = PlayerPrefs.GetInt("LevelCoin", 0);
-
     }
 
     public void NextCar()
     {
-
-
-        if (CurrentIndex >= Vehicales.Length -1 )
+        if (_currentCarIndex >= ShopCars.Length - 1)
         {
-            CurrentIndex = 0;
+            _currentCarIndex = 0;
         }
         else
         {
-            CurrentIndex += 1;
+            _currentCarIndex++;
         }
-        Debug.Log(CurrentIndex);
-
 
         UpdatePrices();
-
-
-
     }
 
 
     public void PreviousCar()
     {
-        if (CurrentIndex < 1)
+        if (_currentCarIndex == 0)
         {
-            CurrentIndex = Vehicales.Length -1;
+            _currentCarIndex = ShopCars.Length - 1;
         }
         else
         {
-            CurrentIndex -= 1;
+            _currentCarIndex--;
         }
 
         UpdatePrices();
-
     }
-
 
 
     void UpdatePrices()
     {
+        _currentCarType = ShopCars[_currentCarIndex].CarType;
 
-        for (int i = 0; i < Vehicales.Length; i++)
+        foreach (var car in ShopCars)
         {
-            Vehicales[i] = Cars.GetChild(i).gameObject;
-
-            if (CurrentIndex == i)
+            if (car.CarType == _currentCarType)
             {
+                car.SetActive(true);
 
-                Vehicales[i].SetActive(true);
-
-                if (PlayerPrefs.GetInt("UnlockCar" + CurrentIndex, 0) == 1)
+                if (UnlockManager.Instance.IsCarUnlock(car.CarType))
                 {
-
-                    if(PlayerPrefs.GetInt("SelectedCar",0)== CurrentIndex)
+                    if (UnlockManager.Instance.GetSelectedCarType() == _currentCarType)
                     {
                         SelectButton.transform.GetChild(0).GetComponent<Text>().text = "Selected";
                         ShopText.text = "";
@@ -106,57 +87,46 @@ public class Shop : MonoBehaviour
                         SelectButton.transform.GetChild(0).GetComponent<Text>().text = "Select";
                         ShopText.text = "";
                     }
-                    
-
                 }
                 else
                 {
                     SelectButton.transform.GetChild(0).GetComponent<Text>().text = "Buy";
-                    ShopText.text = CarPrices[i].ToString();
-
-
+                    ShopText.text = UnlockManager.Instance.GetCar(_currentCarType).UnlockPrice.ToString();
                 }
-
-
             }
             else
             {
-                Vehicales[i].SetActive(false);
+                car.SetActive(false);
             }
-
         }
     }
 
 
     public void SelectCar()
     {
-
-        if (PlayerPrefs.GetInt("UnlockCar" + CurrentIndex, 0) == 1)
+        if (UnlockManager.Instance.IsCarUnlock(_currentCarType))
         {
             Debug.Log("Car Aleady Unlocked");
-            PlayerPrefs.SetInt("UnlockCar" + CurrentIndex, 1);
-            PlayerPrefs.SetInt("SelectedCar", CurrentIndex);
+            UnlockManager.Instance.UnlockCar(_currentCarType);
+            UnlockManager.Instance.SelectCar(_currentCarType);
             UpdatePrices();
         }
 
         else
         {
-            if (CarPrices[CurrentIndex] <= PlayerPrefs.GetInt("LevelCoin", 0))
+            var carPrice = UnlockManager.Instance.GetCar(_currentCarType).UnlockPrice;
+            if (true)//carPrice <= PlayerPrefs.GetInt("LevelCoin", 0))
             {
-
-
-
-                Coins = Coins -  CarPrices[CurrentIndex];
+                Coins -= carPrice;
 
                 PlayerPrefs.SetInt("LevelCoin", Coins);
 
                 Coins = PlayerPrefs.GetInt("LevelCoin");
 
-
                 ShopManager.instance.UpdateCoin();
-
-                PlayerPrefs.SetInt("UnlockCar" + CurrentIndex, 1);
-                PlayerPrefs.SetInt("SelectedCar", CurrentIndex);
+                
+                UnlockManager.Instance.UnlockCar(_currentCarType);
+                UnlockManager.Instance.SelectCar(_currentCarType);
                 UpdatePrices();
             }
             else
@@ -164,10 +134,5 @@ public class Shop : MonoBehaviour
                 Debug.Log("You don't have enough coins");
             }
         }
-
-      
-       
-      
     }
-
 }

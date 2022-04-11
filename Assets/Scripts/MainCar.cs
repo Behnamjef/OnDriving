@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,8 @@ public class MainCar : MonoBehaviour
     public RCC_CarControllerV3 car;
 
     bool isLevelComplete;
+
+    public CarType CarType;
 
     void Start()
     {
