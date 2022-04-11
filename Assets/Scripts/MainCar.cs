@@ -34,9 +34,6 @@ public class MainCar : MonoBehaviour
             other.GetComponent<Collider>().enabled = false;
             car.canControl = false;
             InputManager.Instace.LevelComplete();
-
-            InputManager.CoinValue += 100;
-            InputManager.Instace.UpdateCoinsText();
         }
     }
 

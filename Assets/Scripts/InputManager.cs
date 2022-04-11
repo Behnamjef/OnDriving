@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class InputManager : MonoBehaviour
 {
@@ -89,22 +87,29 @@ public class InputManager : MonoBehaviour
     IEnumerator onGameover()
     {
         yield return new WaitForSeconds(1);
-        AdManager.Instance.ShowInterstitial();
         GameoverPanel.SetActive(true);
     }
 
     public void LevelComplete()
     {
-        AdManager.Instance.ShowInterstitial();
+        LevelComplelePanel.SetActive(true);
+    }
 
+    public void ShowUnlockPanel()
+    {
         if (UnlockManager.Instance.CanUnlockOnThisLevel())
             CarRewardPanel.SetActive(true);
         else
-            LevelComplelePanel.SetActive(true);
-        
+            NextLevel();
     }
 
     public void ClaimTheCar()
+    {
+        AdManager.Instance.OnRewardAdComplete = OnRewardVideoCompleted;
+        AdManager.Instance.ShowRewardAd();
+    }
+
+    private void OnRewardVideoCompleted()
     {
         var carToClaim = UnlockManager.Instance.GetUnlockCarOnThisLevel();
         UnlockManager.Instance.UnlockCar(carToClaim);

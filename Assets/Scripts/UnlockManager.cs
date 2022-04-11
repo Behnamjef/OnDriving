@@ -10,8 +10,9 @@ public class UnlockManager : SingletonBehaviour<UnlockManager>
     public CarType FirstCarToBeUnlock;
     public List<UnlockableCarInfo> PurchasableCarInfos;
 
-    private void Awake()
+    public override void Init()
     {
+        base.Init();
         UnlockCar(FirstCarToBeUnlock);
         if (!PlayerPrefs.HasKey("SelectedCar"))
             SelectCar(FirstCarToBeUnlock);
@@ -69,7 +70,7 @@ public class UnlockManager : SingletonBehaviour<UnlockManager>
     {
         int Level = PlayerPrefs.GetInt("Level", 1);
         var btnLevel = PlayerPrefs.GetInt("BtnLevel", 0);
-        return Level == btnLevel;
+        return Level-1 == btnLevel;
     }
 }
 

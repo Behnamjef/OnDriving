@@ -486,7 +486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &25282013
 Transform:
   m_ObjectHideFlags: 0
@@ -2033,7 +2033,7 @@ GameObject:
   - component: {fileID: 171143426}
   - component: {fileID: 171143425}
   m_Layer: 5
-  m_Name: TopBar
+  m_Name: BottomBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2054,10 +2054,10 @@ RectTransform:
   m_Father: {fileID: 1639461777}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 187.6306}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 187.63062}
+  m_SizeDelta: {x: 0, y: 187.63062}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &171143425
 MonoBehaviour:
@@ -23795,8 +23795,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 409064554073817107, guid: ce1b4af6bc23c4e1a8de212edefa222b,
         type: 3}
-      propertyPath: PurchasableCarInfos.Array.data[14].UnlockPrice
+      propertyPath: PurchasableCarInfos.Array.data[12].UnlockLevel
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 409064554073817107, guid: ce1b4af6bc23c4e1a8de212edefa222b,
+        type: 3}
+      propertyPath: PurchasableCarInfos.Array.data[18].UnlockLevel
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce1b4af6bc23c4e1a8de212edefa222b, type: 3}
@@ -24123,7 +24128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InterstitialID: ca-app-pub-3940256099942544/1033173712
   bannerAdUnitID: ca-app-pub-3940256099942544/6300978111
-  RewardVideoID: YOUR_AD_UNIT_ID
+  RewardVideoID: ca-app-pub-3940256099942544/5224354917
 --- !u!4 &1768343253
 Transform:
   m_ObjectHideFlags: 0
@@ -27527,7 +27532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -93.815}
+  m_AnchoredPosition: {x: 0, y: 93.815}
   m_SizeDelta: {x: 0, y: -187.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2097869076
