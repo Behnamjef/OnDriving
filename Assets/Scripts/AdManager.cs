@@ -44,13 +44,11 @@ public class AdManager : MonoBehaviour
     private void Interstitial_OnAdFailedToLoad(object sender, AdFailedToLoadEventArgs e)
     {
         LoadInterstitial();
-        throw new NotImplementedException();
     }
 
     private void Interstitial_OnAdClosed(object sender, EventArgs e)
     {
         LoadInterstitial();
-        throw new NotImplementedException();
     }
 
     private void LoadInterstitial()

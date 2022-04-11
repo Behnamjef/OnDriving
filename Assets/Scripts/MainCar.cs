@@ -20,11 +20,13 @@ public class MainCar : MonoBehaviour
         if (other.tag == "Finish_Point")
         {
             isLevelComplete = true;
-            int Level = PlayerPrefs.GetInt("Level", 0);
-            if(Level == PlayerPrefs.GetInt("BtnLevel",0))
+            int Level = PlayerPrefs.GetInt("Level", 1);
+            var btnLevel = PlayerPrefs.GetInt("BtnLevel", 0);
+            if (Level == btnLevel)
             {
-            Level++;
+                Level++;
             }
+
             PlayerPrefs.SetInt("Level", Level);
             other.GetComponent<Collider>().enabled = false;
             car.canControl = false;
@@ -37,12 +39,12 @@ public class MainCar : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Barrier")
+        if (collision.gameObject.tag == "Barrier")
         {
-            if(!isLevelComplete)
+            if (!isLevelComplete)
             {
                 collision.gameObject.GetComponent<MeshRenderer>().material = GameManger.Instance.CollisionMaterial;
-            InputManager.Instace.Gameover();
+                InputManager.Instace.Gameover();
             }
         }
     }
