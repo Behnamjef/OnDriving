@@ -5,15 +5,10 @@ using UnityEngine;
 public class Rotate : MonoBehaviour
 {
     public float RotateSpeed;
-
-
-    void Start()
-    {
-        
-    }
-
+    public Vector3 Axis = new Vector3(0, 1, 0);
+    
     void Update()
     {
-        transform.Rotate(0, RotateSpeed *Time.deltaTime,0);
+        transform.Rotate(Axis * RotateSpeed * Time.deltaTime);
     }
 }
