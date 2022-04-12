@@ -86,6 +86,7 @@ public class AdManager : MonoBehaviour
 
     private void InitializeRewardedAd()
     {
+        rewardedAd = new RewardedAd(RewardVideoID);
         LoadRewardAd();
 
         // Called when an ad request has successfully loaded.
@@ -104,8 +105,6 @@ public class AdManager : MonoBehaviour
 
     private void LoadRewardAd()
     {
-        rewardedAd = new RewardedAd(RewardVideoID);
-
         // Create an empty ad request.
         var request = new AdRequest.Builder().Build();
 

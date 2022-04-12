@@ -74,8 +74,8 @@ namespace DefaultNamespace
 
         private void OnAdClosed()
         {
+            SetActive(false);
             Close();
-
         }
         
         private void Close()
