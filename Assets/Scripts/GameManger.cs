@@ -15,6 +15,8 @@ public class GameManger : MonoBehaviour
 
     public MainCar[] CarPrefab;
 
+    public MainCar currentCar;
+    
     void Awake()
     {
         Instance = this;
@@ -29,9 +31,9 @@ public class GameManger : MonoBehaviour
 
     private void InitCar(GameObject Level)
     {
-        var car = CarPrefab.FirstOrDefault(c=>c.CarType == UnlockManager.Instance.GetSelectedCarType());
-        car.transform.position = Level.transform.GetChild(0).transform.position;
-        car.transform.rotation = Level.transform.GetChild(0).rotation;
-        car.gameObject.SetActive(true);
+        currentCar = CarPrefab.FirstOrDefault(c=>c.CarType == UnlockManager.Instance.GetSelectedCarType());
+        currentCar.transform.position = Level.transform.GetChild(0).transform.position;
+        currentCar.transform.rotation = Level.transform.GetChild(0).rotation;
+        currentCar.gameObject.SetActive(true);
     }
 }

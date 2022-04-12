@@ -113,11 +113,11 @@ public class InputManager : MonoBehaviour
 
     public void ClaimTheCar()
     {
-        AdManager.Instance.OnRewardAdComplete = OnRewardVideoCompleted;
+        AdManager.Instance.OnRewardAdComplete = UnlockCar;
         AdManager.Instance.ShowRewardAd();
     }
 
-    private void OnRewardVideoCompleted()
+    private void UnlockCar()
     {
         var carToClaim = UnlockManager.Instance.GetUnlockCarOnThisLevel();
         UnlockManager.Instance.UnlockCar(carToClaim);
@@ -167,5 +167,21 @@ public class InputManager : MonoBehaviour
     {
         CoinText.text = CoinValue.ToString();
         PlayerPrefs.SetInt("LevelCoin", CoinValue);
+    }
+
+    public void PlayerWantsSecondChance()
+    {
+        GivePlayerSecondChance();
+        return;
+        AdManager.Instance.OnRewardAdComplete = GivePlayerSecondChance;
+        AdManager.Instance.ShowRewardAd();
+    }
+
+    private void GivePlayerSecondChance()
+    {
+        GameoverPanel.SetActive(false);
+        MobileDrag.SetActive(true);
+        WheelsPanel.SetActive(true);
+        GameManger.Instance.currentCar.GiveSecondChance();
     }
 }

@@ -40,7 +40,7 @@ public class MainCar : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Barrier")
+        if (collision.gameObject.tag == "Barrier" && !isHit)
         {
             if (!isLevelComplete)
             {
@@ -49,5 +49,11 @@ public class MainCar : MonoBehaviour
                 InputManager.Instace.Gameover();
             }
         }
+    }
+
+    public void GiveSecondChance()
+    {
+        transform.position += transform.forward * -2f;
+        isHit = false;
     }
 }
