@@ -18,13 +18,15 @@ public class InputManager : MonoBehaviour
     public Text CoinText;
     public static int CoinValue;
 
-
+    public GameObject MobileDrag;
+    
     [Space] public GameObject TapTopStart;
 
     [Header("Game Panels")] public GameObject LevelComplelePanel;
     public GameObject GameoverPanel;
     public GameObject PausePanal;
     public GameObject CarRewardPanel;
+    public GameObject WheelsPanel;
 
     void Awake()
     {
@@ -81,6 +83,9 @@ public class InputManager : MonoBehaviour
 
     public void Gameover()
     {
+        TouchUp();
+        MobileDrag.SetActive(false);
+        WheelsPanel.SetActive(false);
         StartCoroutine(onGameover());
     }
 
@@ -92,7 +97,10 @@ public class InputManager : MonoBehaviour
 
     public void LevelComplete()
     {
+        TouchUp();
+        WheelsPanel.SetActive(false);
         LevelComplelePanel.SetActive(true);
+        MobileDrag.SetActive(false);
     }
 
     public void ShowUnlockPanel()
@@ -137,19 +145,24 @@ public class InputManager : MonoBehaviour
     }
 
     public void PauseBtn()
-
     {
         Time.timeScale = 0;
         PausePanal.SetActive(true);
     }
 
     public void ResumeBtn()
-
     {
         Time.timeScale = 1;
         PausePanal.SetActive(false);
     }
 
+    public void UpdateCoinValue()
+    {
+        
+        CoinValue = PlayerPrefs.GetInt("LevelCoin", 0);
+        UpdateCoinsText();
+    }
+    
     public void UpdateCoinsText()
     {
         CoinText.text = CoinValue.ToString();

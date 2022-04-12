@@ -9,6 +9,7 @@ public class MainCar : MonoBehaviour
     public RCC_CarControllerV3 car;
 
     bool isLevelComplete;
+    bool isHit;
 
     public CarType CarType;
 
@@ -20,7 +21,7 @@ public class MainCar : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Finish_Point")
+        if (other.tag == "Finish_Point" && !isHit)
         {
             isLevelComplete = true;
             int Level = PlayerPrefs.GetInt("Level", 1);
@@ -43,6 +44,7 @@ public class MainCar : MonoBehaviour
         {
             if (!isLevelComplete)
             {
+                isHit = true;
                 collision.gameObject.GetComponent<MeshRenderer>().material = GameManger.Instance.CollisionMaterial;
                 InputManager.Instace.Gameover();
             }

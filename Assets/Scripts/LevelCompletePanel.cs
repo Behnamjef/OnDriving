@@ -60,7 +60,7 @@ namespace DefaultNamespace
             var levelCoin = (int)Mathf.Lerp(_levelCoin * 2, _levelCoin * 6, needleSpeedPace);
             var coins = PlayerPrefs.GetInt("LevelCoin", 0);
             PlayerPrefs.SetInt("LevelCoin", coins + levelCoin);
-            InputManager.Instace.UpdateCoinsText();
+            InputManager.Instace.UpdateCoinValue();
         }
 
         public void SkipSpeedMeter()
@@ -69,7 +69,7 @@ namespace DefaultNamespace
             PlayerPrefs.SetInt("LevelCoin", coins + _levelCoin);
             AdManager.Instance.OnAdClosed = OnAdClosed;
             AdManager.Instance.ShowInterstitial();
-            InputManager.Instace.UpdateCoinsText();
+            InputManager.Instace.UpdateCoinValue();
         }
 
         private void OnAdClosed()
