@@ -67,9 +67,10 @@ namespace DefaultNamespace
         {
             var coins = PlayerPrefs.GetInt("LevelCoin", 0);
             PlayerPrefs.SetInt("LevelCoin", coins + _levelCoin);
-            AdManager.Instance.OnAdClosed = OnAdClosed;
-            AdManager.Instance.ShowInterstitial();
             InputManager.Instace.UpdateCoinValue();
+            AdManager.Instance.OnAdClosed = OnAdClosed;
+            if(!AdManager.Instance.ShowInterstitial())
+                OnAdClosed();
         }
 
         private void OnAdClosed()

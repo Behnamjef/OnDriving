@@ -6,15 +6,23 @@ public class AdManager : MonoBehaviour
 {
     public static AdManager Instance { set; get; }
 
-    public string InterstitialID;
-    public string bannerAdUnitID;
-    public string RewardVideoID;
-
+#if UNITY_ANDROID
+    private string InterstitialID = "ca-app-pub-3940256099942544/1033173712";
+    private string bannerAdUnitID = "ca-app-pub-3940256099942544/6300978111";
+    private string RewardVideoID = "ca-app-pub-3940256099942544/5224354917";
+    
+#elif UNITY_IOS
+    private string InterstitialID = "ca-app-pub-3940256099942544/4411468910";
+    private string bannerAdUnitID = "ca-app-pub-3940256099942544/2934735716";
+    private string RewardVideoID = "ca-app-pub-3940256099942544/1712485313";
+#endif
+    
     private InterstitialAd interstitial;
     private BannerView Banner;
     private RewardedAd rewardedAd;
 
-    private bool IsRewardAdReady => rewardedAd.IsLoaded();
+    public bool IsRewardAdReady => rewardedAd.IsLoaded();
+    public bool IsInterstitialAdReady => interstitial.IsLoaded();
 
     public Action OnRewardAdComplete;
     public Action OnAdClosed;
@@ -61,12 +69,12 @@ public class AdManager : MonoBehaviour
     }
 
 
-    public void ShowInterstitial()
+    public bool ShowInterstitial()
     {
-        if (interstitial.IsLoaded())
-        {
-            interstitial.Show();
-        }
+        if (!IsInterstitialAdReady) return false;
+        interstitial.Show();
+        return true;
+
     }
 
     #endregion
@@ -141,11 +149,12 @@ public class AdManager : MonoBehaviour
     {
     }
 
-    public void ShowRewardAd()
+    public bool ShowRewardAd()
     {
-        if (IsRewardAdReady) {
-            rewardedAd.Show();
-        }
+        if (!IsRewardAdReady) return false;
+        rewardedAd.Show();
+        return true;
+
     }
 
     #endregion

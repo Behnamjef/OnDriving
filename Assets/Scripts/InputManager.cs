@@ -171,8 +171,6 @@ public class InputManager : MonoBehaviour
 
     public void PlayerWantsSecondChance()
     {
-        GivePlayerSecondChance();
-        return;
         AdManager.Instance.OnRewardAdComplete = GivePlayerSecondChance;
         AdManager.Instance.ShowRewardAd();
     }
