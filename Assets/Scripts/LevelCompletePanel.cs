@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using MagicOwl;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +40,7 @@ namespace DefaultNamespace
             if (needleSpeedPace <= 1 && needleSpeedPace >= 0)
             {
                 meterNeedle.eulerAngles = Vector3.forward * Mathf.Lerp(60, -70, needleSpeedPace);
-                multipleCoinCount.text = "+" + (int)Mathf.Lerp(_levelCoin * 2, _levelCoin * 6, needleSpeedPace);
+                multipleCoinCount.text = "+" + RoundMeterValue();
             }
             else
             {
@@ -48,9 +49,10 @@ namespace DefaultNamespace
             }
         }
 
-        public void WatchVideoForMultipleCoin()
+        public async void WatchVideoForMultipleCoin()
         {
             _stopNeedle = true;
+            await Task.Delay(1000);
             AdManager.Instance.OnAdClosed = OnAdClosed;
             AdManager.Instance.OnRewardAdComplete = RewardAdComplete;
             AdManager.Instance.ShowRewardAd();
@@ -58,10 +60,15 @@ namespace DefaultNamespace
 
         private void RewardAdComplete()
         {
-            var levelCoin = (int)Mathf.Lerp(_levelCoin * 2, _levelCoin * 6, needleSpeedPace);
+            var levelCoin = RoundMeterValue();
             var coins = PlayerPrefs.GetInt("LevelCoin", 0);
             PlayerPrefs.SetInt("LevelCoin", coins + levelCoin);
             InputManager.Instace.UpdateCoinValue();
+        }
+
+        private int RoundMeterValue()
+        {
+            return (int)(Mathf.Lerp(_levelCoin * 2, _levelCoin * 6.5f, needleSpeedPace) / 100) * 100;
         }
 
         public void SkipSpeedMeter()

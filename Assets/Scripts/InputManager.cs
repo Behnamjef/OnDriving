@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
     public GameObject PausePanal;
     public GameObject CarRewardPanel;
     public GameObject WheelsPanel;
+    public GameObject LoadingPanel;
 
     void Awake()
     {
@@ -127,14 +128,13 @@ public class InputManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(1);
+        LoadingPanel.SetActive(true);
     }
 
     public void NextLevel()
     {
         PlayerPrefs.SetInt("BtnLevel", PlayerPrefs.GetInt("BtnLevel", 0) + 1);
-
-        SceneManager.LoadScene(1);
+        Restart();
     }
 
     public void Home()

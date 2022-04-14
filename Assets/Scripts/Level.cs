@@ -21,6 +21,6 @@ public class Level : MonoBehaviour
     {
         PlayerPrefs.SetInt("BtnLevel", transform.GetSiblingIndex() + 1);
         PlayerPrefs.SetInt("FromBtn", 1);
-        SceneManager.LoadScene(1);
+        MainManager.Instance.LoadLevelScene();
     }
 }

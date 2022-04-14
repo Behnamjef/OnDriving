@@ -1,12 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class MainManager : MonoBehaviour
 {
+    public static MainManager Instance;
 
     public GameObject LoadingPanel;
     public GameObject LevelManager;
+
+    private void Awake()
+    {
+        if (!Instance) Instance = this;
+        else Destroy(gameObject);
+    }
 
     void Start()
     {
@@ -15,10 +21,15 @@ public class MainManager : MonoBehaviour
 
     public void PlayGame()
     {
-        //LoadingPanel.SetActive(true);
         LevelManager.SetActive(true);
     }
 
+    public void LoadLevelScene()
+    {
+        LevelManager.SetActive(false);
+        LoadingPanel.SetActive(true);
+    }
+    
     public void QuitGame()
     {
         Application.Quit();

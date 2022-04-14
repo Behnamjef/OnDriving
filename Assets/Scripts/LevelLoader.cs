@@ -12,6 +12,7 @@ public class LevelLoader : MonoBehaviour
     {
         StartCoroutine(LoadAsynchronously(LoadLevelInt));
     }
+    
     public void Loadlevel( int LevelIndex)
     {
         
