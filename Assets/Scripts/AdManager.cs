@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using GoogleMobileAds.Api;
 
@@ -10,20 +11,25 @@ public class AdManager : MonoBehaviour
     private string InterstitialID = "ca-app-pub-3940256099942544/1033173712";
     private string bannerAdUnitID = "ca-app-pub-3940256099942544/6300978111";
     private string RewardVideoID = "ca-app-pub-3940256099942544/5224354917";
-    
+    private string AppOpenID = "ca-app-pub-3940256099942544/3419835294";
+
 #elif UNITY_IOS
     private string InterstitialID = "ca-app-pub-3940256099942544/4411468910";
     private string bannerAdUnitID = "ca-app-pub-3940256099942544/2934735716";
     private string RewardVideoID = "ca-app-pub-3940256099942544/1712485313";
+    private string AppOpenID = "ca-app-pub-3940256099942544/5662855259";
 #endif
-    
+
     private InterstitialAd interstitial;
     private BannerView Banner;
     private RewardedAd rewardedAd;
+    private AppOpenAd appOpenAd;
 
     public bool IsRewardAdReady => rewardedAd.IsLoaded();
     public bool IsInterstitialAdReady => interstitial.IsLoaded();
-
+    private bool IsAppOpenAdAvailable => appOpenAd != null;
+    private bool _isShowingAppOpenAd = false;
+    
     public Action OnRewardAdComplete;
     public Action OnAdClosed;
 
@@ -32,18 +38,20 @@ public class AdManager : MonoBehaviour
         Instance = this;
     }
 
-
     void Start()
     {
         InitializeInterstitialAds();
         InitializeRewardedAd();
         BannerShow();
+        LoadAppOpenAd();
     }
 
     #region Interstitial
 
     void InitializeInterstitialAds()
     {
+        interstitial = new InterstitialAd(InterstitialID);
+
         LoadInterstitial();
         interstitial.OnAdClosed += Interstitial_OnAdClosed;
         interstitial.OnAdFailedToLoad += Interstitial_OnAdFailedToLoad;
@@ -62,26 +70,20 @@ public class AdManager : MonoBehaviour
 
     private void LoadInterstitial()
     {
-        interstitial = new InterstitialAd(InterstitialID);
-
         AdRequest adRequest = new AdRequest.Builder().Build();
         interstitial.LoadAd(adRequest);
     }
-
 
     public bool ShowInterstitial()
     {
         if (!IsInterstitialAdReady) return false;
         interstitial.Show();
         return true;
-
     }
 
     #endregion
 
     #region Banner
-
-    #region Reward ad
 
     public void BannerShow()
     {
@@ -91,6 +93,8 @@ public class AdManager : MonoBehaviour
     }
 
     #endregion
+
+    #region Reward ad
 
     private void InitializeRewardedAd()
     {
@@ -154,8 +158,95 @@ public class AdManager : MonoBehaviour
         if (!IsRewardAdReady) return false;
         rewardedAd.Show();
         return true;
-
     }
 
     #endregion
+
+    #region App Open ad
+
+
+    public void LoadAppOpenAd()
+    {
+        AdRequest request = new AdRequest.Builder().Build();
+
+        // Load an app open ad for portrait orientation
+        AppOpenAd.LoadAd(AppOpenID, ScreenOrientation.Portrait, request, ((appOpenAd, error) =>
+        {
+            if (error != null)
+            {
+                // Handle the error.
+                Debug.LogFormat("Failed to load the ad. (reason: {0})", error.LoadAdError.GetMessage());
+                return;
+            }
+
+            // App open ad is loaded.
+            this.appOpenAd = appOpenAd;
+        }));
+    }
+    
+    private async void ShowAppOpenIfAvailable()
+    {
+        await ShowAppOpenAd();
+    }
+
+    private async Task ShowAppOpenAd()
+    {
+        if(_isShowingAppOpenAd)
+            return;
+        
+        while (!IsAppOpenAdAvailable)
+        {
+            await Task.Delay(500);
+        }
+
+        appOpenAd.OnAdDidDismissFullScreenContent += HandleAdDidDismissFullScreenContent;
+        appOpenAd.OnAdFailedToPresentFullScreenContent += HandleAdFailedToPresentFullScreenContent;
+        appOpenAd.OnAdDidPresentFullScreenContent += HandleAdDidPresentFullScreenContent;
+        appOpenAd.OnAdDidRecordImpression += HandleAdDidRecordImpression;
+        appOpenAd.OnPaidEvent += HandlePaidEvent;
+        
+        appOpenAd.Show();
+    }
+    
+    private void HandleAdDidDismissFullScreenContent(object sender, EventArgs args)
+    {
+        Debug.Log("Closed app open ad");
+        // Set the ad to null to indicate that AppOpenAdManager no longer has another ad to show.
+        appOpenAd = null;
+        _isShowingAppOpenAd = false;
+        LoadAppOpenAd();
+    }
+
+    private void HandleAdFailedToPresentFullScreenContent(object sender, AdErrorEventArgs args)
+    {
+        Debug.LogFormat("Failed to present the ad (reason: {0})", args.AdError.GetMessage());
+        // Set the ad to null to indicate that AppOpenAdManager no longer has another ad to show.
+        appOpenAd = null;
+        LoadAppOpenAd();
+    }
+
+    private void HandleAdDidPresentFullScreenContent(object sender, EventArgs args)
+    {
+        Debug.Log("Displayed app open ad");
+        _isShowingAppOpenAd = true;
+    }
+
+    private void HandleAdDidRecordImpression(object sender, EventArgs args)
+    {
+        Debug.Log("Recorded ad impression");
+    }
+
+    private void HandlePaidEvent(object sender, AdValueEventArgs args)
+    {
+        Debug.LogFormat("Received paid event. (currency: {0}, value: {1}",
+            args.AdValue.CurrencyCode, args.AdValue.Value);
+    }
+    
+    #endregion
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if(!pauseStatus)
+            ShowAppOpenIfAvailable();
+    }
 }

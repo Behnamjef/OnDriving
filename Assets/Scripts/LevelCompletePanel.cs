@@ -23,6 +23,7 @@ namespace DefaultNamespace
         private float needleLeftAngle = -70;
 
         private bool _stopNeedle;
+
         private void Start()
         {
             _levelCoin = 100;
@@ -33,7 +34,7 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            if(_stopNeedle) return;
+            if (_stopNeedle) return;
             needleSpeedPace += needleSpeed * Time.deltaTime * (needleSpeedDirection ? 1 : -1);
             if (needleSpeedPace <= 1 && needleSpeedPace >= 0)
             {
@@ -69,7 +70,7 @@ namespace DefaultNamespace
             PlayerPrefs.SetInt("LevelCoin", coins + _levelCoin);
             InputManager.Instace.UpdateCoinValue();
             AdManager.Instance.OnAdClosed = OnAdClosed;
-            if(!AdManager.Instance.ShowInterstitial())
+            if (!AdManager.Instance.ShowInterstitial())
                 OnAdClosed();
         }
 
@@ -78,9 +79,10 @@ namespace DefaultNamespace
             SetActive(false);
             Close();
         }
-        
+
         private void Close()
         {
+            AdManager.Instance.OnAdClosed -= OnAdClosed;
             InputManager.Instace.ShowUnlockPanel();
         }
     }
