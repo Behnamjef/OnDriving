@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 823.64996, y: 1130.475, z: -770.73083}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,62 +47,43 @@ MonoBehaviour:
   FirstCarToBeUnlock: 9
   PurchasableCarInfos:
   - CarType: 0
-    UnlockPrice: 3500
-    UnlockLevel: -1
+    UnlockPrice: 7000
   - CarType: 1
     UnlockPrice: 0
-    UnlockLevel: -1
   - CarType: 2
-    UnlockPrice: 3800
-    UnlockLevel: -1
+    UnlockPrice: 7600
   - CarType: 3
-    UnlockPrice: 4100
-    UnlockLevel: -1
+    UnlockPrice: 8200
   - CarType: 4
     UnlockPrice: 0
-    UnlockLevel: -1
   - CarType: 5
     UnlockPrice: 0
-    UnlockLevel: -1
   - CarType: 6
-    UnlockPrice: 1500
-    UnlockLevel: 3
+    UnlockPrice: 3000
   - CarType: 7
-    UnlockPrice: 4400
-    UnlockLevel: -1
+    UnlockPrice: 8800
   - CarType: 8
-    UnlockPrice: 4800
-    UnlockLevel: -1
+    UnlockPrice: 9600
   - CarType: 9
     UnlockPrice: 0
-    UnlockLevel: -1
   - CarType: 10
-    UnlockPrice: 900
-    UnlockLevel: 2
+    UnlockPrice: 1800
   - CarType: 11
-    UnlockPrice: 5100
-    UnlockLevel: -1
+    UnlockPrice: 10200
   - CarType: 12
-    UnlockPrice: 6900
-    UnlockLevel: -1
+    UnlockPrice: 13800
   - CarType: 13
     UnlockPrice: 0
-    UnlockLevel: -1
   - CarType: 14
     UnlockPrice: 0
-    UnlockLevel: -1
   - CarType: 15
     UnlockPrice: 0
-    UnlockLevel: -1
   - CarType: 16
-    UnlockPrice: 5800
-    UnlockLevel: -1
+    UnlockPrice: 11600
   - CarType: 17
-    UnlockPrice: 1800
-    UnlockLevel: -1
+    UnlockPrice: 3600
   - CarType: 18
-    UnlockPrice: 500
-    UnlockLevel: 1
+    UnlockPrice: 1000
   - CarType: 19
-    UnlockPrice: 2000
-    UnlockLevel: -1
+    UnlockPrice: 4000
+  UnlockCarOrder: 120000000a00000006000000110000001300000000000000020000000300000007000000080000000b000000100000000c000000

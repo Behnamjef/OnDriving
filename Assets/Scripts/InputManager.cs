@@ -105,7 +105,7 @@ public class InputManager : MonoBehaviour
 
     public void ShowUnlockPanel()
     {
-        if (UnlockManager.Instance.CanUnlockOnThisLevel())
+        if (UnlockManager.Instance.CanUnlockCar())
             CarRewardPanel.SetActive(true);
         else
             NextLevel();
@@ -119,7 +119,7 @@ public class InputManager : MonoBehaviour
 
     private void UnlockCar()
     {
-        var carToClaim = UnlockManager.Instance.GetUnlockCarOnThisLevel();
+        var carToClaim = UnlockManager.Instance.GetUnlockCar();
         UnlockManager.Instance.UnlockCar(carToClaim);
         UnlockManager.Instance.SelectCar(carToClaim);
         NextLevel();

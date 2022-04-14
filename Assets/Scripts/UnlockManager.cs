@@ -9,6 +9,7 @@ public class UnlockManager : SingletonBehaviour<UnlockManager>
 {
     public CarType FirstCarToBeUnlock;
     public List<UnlockableCarInfo> PurchasableCarInfos;
+    public List<CarType> UnlockCarOrder;
 
     public override void Init()
     {
@@ -45,25 +46,9 @@ public class UnlockManager : SingletonBehaviour<UnlockManager>
         PlayerPrefs.SetString($"SelectedCar", carType.ToString());
     }
 
-    public bool CanUnlockOnThisLevel()
+    public CarType GetUnlockCar()
     {
-        if (!IsThisLastLevel())
-            return false;
-        
-        var btnLevel = PlayerPrefs.GetInt("BtnLevel", 0);
-        var isThereAnyCarToUnlock = PurchasableCarInfos.Exists(c => c.UnlockLevel == btnLevel);
-        if (isThereAnyCarToUnlock)
-        {
-            return !IsCarUnlock(GetUnlockCarOnThisLevel());
-        }
-
-        return false;
-    }
-
-    public CarType GetUnlockCarOnThisLevel()
-    {
-        var btnLevel = PlayerPrefs.GetInt("BtnLevel", 0);
-        return PurchasableCarInfos.Find(c => c.UnlockLevel == btnLevel).CarType;
+        return UnlockCarOrder.First(c => !IsCarUnlock(c));
     }
     
     private bool IsThisLastLevel()
@@ -72,6 +57,11 @@ public class UnlockManager : SingletonBehaviour<UnlockManager>
         var btnLevel = PlayerPrefs.GetInt("BtnLevel", 0);
         return Level-1 == btnLevel;
     }
+
+    public bool CanUnlockCar()
+    {
+        return IsThisLastLevel() && UnlockCarOrder.Exists(c => !IsCarUnlock(c));
+    }
 }
 
 [Serializable]
@@ -79,5 +69,4 @@ public class UnlockableCarInfo
 {
     public CarType CarType;
     public int UnlockPrice;
-    public int UnlockLevel;
 }

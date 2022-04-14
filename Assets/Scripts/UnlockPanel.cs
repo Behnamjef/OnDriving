@@ -11,7 +11,7 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            var carType = UnlockManager.Instance.GetUnlockCarOnThisLevel();
+            var carType = UnlockManager.Instance.GetUnlockCar();
             var car = ShopCars.Find(c => c.CarType == carType);
             car.SetActive(true);
         }
