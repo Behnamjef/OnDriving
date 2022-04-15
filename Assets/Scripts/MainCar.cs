@@ -17,12 +17,16 @@ public class MainCar : MonoBehaviour
     {
         car = GetComponent<RCC_CarControllerV3>();
         isLevelComplete = false;
+        SoundManager.Instance.PlaySound(SoundType.LevelStart);
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Finish_Point" && !isHit)
         {
+            SoundManager.Instance.PlaySound(SoundType.FinishReached);
+            SoundManager.Instance.PlaySound(SoundType.Win);
+
             isLevelComplete = true;
             int Level = PlayerPrefs.GetInt("Level", 1);
             var btnLevel = PlayerPrefs.GetInt("BtnLevel", 0);
@@ -47,6 +51,7 @@ public class MainCar : MonoBehaviour
                 isHit = true;
                 collision.gameObject.GetComponent<MeshRenderer>().material = GameManger.Instance.CollisionMaterial;
                 InputManager.Instace.Gameover();
+                SoundManager.Instance.PlaySound(SoundType.CarHit);
             }
         }
     }

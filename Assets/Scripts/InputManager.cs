@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
     public static int CoinValue;
 
     public GameObject MobileDrag;
-    
+
     [Space] public GameObject TapTopStart;
 
     [Header("Game Panels")] public GameObject LevelComplelePanel;
@@ -62,9 +62,11 @@ public class InputManager : MonoBehaviour
         if (Gear == 0)
         {
             Gear = 2;
+            SoundManager.Instance.PlaySound(SoundType.Gear_R);
         }
         else
         {
+            SoundManager.Instance.PlaySound(SoundType.Gear_D);
             Gear = 0;
         }
 
@@ -93,6 +95,7 @@ public class InputManager : MonoBehaviour
     IEnumerator onGameover()
     {
         yield return new WaitForSeconds(1);
+        SoundManager.Instance.PlaySound(SoundType.UIShowUp);
         GameoverPanel.SetActive(true);
     }
 
@@ -102,12 +105,16 @@ public class InputManager : MonoBehaviour
         WheelsPanel.SetActive(false);
         LevelComplelePanel.SetActive(true);
         MobileDrag.SetActive(false);
+        SoundManager.Instance.PlaySound(SoundType.UIShowUp);
     }
 
     public void ShowUnlockPanel()
     {
         if (UnlockManager.Instance.CanUnlockCar())
+        {
+            SoundManager.Instance.PlaySound(SoundType.UIShowUp);
             CarRewardPanel.SetActive(true);
+        }
         else
             NextLevel();
     }
@@ -128,6 +135,7 @@ public class InputManager : MonoBehaviour
 
     public void Restart()
     {
+        SoundManager.Instance.PlaySound(SoundType.UIShowUp);
         LoadingPanel.SetActive(true);
     }
 
@@ -158,11 +166,10 @@ public class InputManager : MonoBehaviour
 
     public void UpdateCoinValue()
     {
-        
         CoinValue = PlayerPrefs.GetInt("LevelCoin", 0);
         UpdateCoinsText();
     }
-    
+
     public void UpdateCoinsText()
     {
         CoinText.text = CoinValue.ToString();
