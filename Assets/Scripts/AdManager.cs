@@ -75,8 +75,7 @@ public class AdManager : MonoBehaviour
     }
 
     public bool ShowInterstitial()
-    {        Debug.Log("Show interestitail");
-
+    {
         if (!IsInterstitialAdReady) return false;
         interstitial.Show();
         return true;
@@ -156,7 +155,6 @@ public class AdManager : MonoBehaviour
 
     public bool ShowRewardAd()
     {
-        Debug.Log("Show reward");
         if (!IsRewardAdReady) return false;
         rewardedAd.Show();
         return true;
@@ -193,8 +191,6 @@ public class AdManager : MonoBehaviour
 
     private async Task ShowAppOpenAd()
     {
-        Debug.Log("Show app open");
-
         if(_isShowingAppOpenAd)
             return;
         

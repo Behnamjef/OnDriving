@@ -12,9 +12,10 @@ public class RewardVideoBtn : CommonUIBehaviour
     
     private void Update()
     {
-        Button.interactable = AdManager.Instance.IsRewardAdReady;
+        var isReady = false;//AdManager.Instance.IsRewardAdReady;
+        Button.interactable = isReady;
         var pos = Text.localPosition;
-        pos.x = AdManager.Instance.IsRewardAdReady ? EnableTextGap : 0;
+        pos.x = isReady ? EnableTextGap : 0;
         Text.localPosition = pos;
     }
 

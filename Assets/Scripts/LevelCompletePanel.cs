@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using MagicOwl;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +11,9 @@ namespace DefaultNamespace
     {
         private int _levelCoin;
 
-        [SerializeField] private Text coinCount;
-        [SerializeField] private Text normalCoinCount;
-        [SerializeField] private Text multipleCoinCount;
+        [SerializeField] private TextMeshProUGUI coinCount;
+        [SerializeField] private TextMeshProUGUI normalCoinCount;
+        [SerializeField] private TextMeshProUGUI multipleCoinCount;
 
         [SerializeField] private Transform meterNeedle;
         [SerializeField] private float needleSpeed = 1;
@@ -28,8 +29,8 @@ namespace DefaultNamespace
         private void Start()
         {
             _levelCoin = 100;
-            coinCount.text = "+" + _levelCoin;
-            normalCoinCount.text = "+" + _levelCoin;
+            coinCount.text = _levelCoin.ToString();
+            normalCoinCount.text = _levelCoin.ToString();
             RebuildAllRects();
         }
 
@@ -40,7 +41,7 @@ namespace DefaultNamespace
             if (needleSpeedPace <= 1 && needleSpeedPace >= 0)
             {
                 meterNeedle.eulerAngles = Vector3.forward * Mathf.Lerp(60, -70, needleSpeedPace);
-                multipleCoinCount.text = "+" + RoundMeterValue();
+                multipleCoinCount.text = RoundMeterValue().ToString();
             }
             else
             {
