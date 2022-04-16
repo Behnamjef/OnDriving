@@ -42,6 +42,7 @@ public class AdManager : MonoBehaviour
     {
         InitializeInterstitialAds();
         InitializeRewardedAd();
+        InitializeBanner();
         BannerShow();
         LoadAppOpenAd();
     }
@@ -85,9 +86,13 @@ public class AdManager : MonoBehaviour
 
     #region Banner
 
-    public void BannerShow()
+    private void InitializeBanner()
     {
         Banner = new BannerView(bannerAdUnitID, AdSize.Banner, AdPosition.Bottom);
+    }
+    
+    public void BannerShow()
+    {
         AdRequest request = new AdRequest.Builder().Build();
         Banner.LoadAd(request);
     }
