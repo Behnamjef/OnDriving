@@ -4,6 +4,7 @@ using System.Linq;
 using DefaultNamespace;
 using MagicOwl;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class UnlockManager : SingletonBehaviour<UnlockManager>
 {
@@ -48,7 +49,8 @@ public class UnlockManager : SingletonBehaviour<UnlockManager>
 
     public CarType GetUnlockCar()
     {
-        return UnlockCarOrder.First(c => !IsCarUnlock(c));
+        var lockedCars = UnlockCarOrder.Where(c => !IsCarUnlock(c)).ToArray();
+        return lockedCars[Random.Range(0,lockedCars.Length)];
     }
     
     private bool IsThisLastLevel()
