@@ -8,16 +8,16 @@ public class AdManager : MonoBehaviour
     public static AdManager Instance { set; get; }
 
 #if UNITY_ANDROID
-    private string InterstitialID = "ca-app-pub-3940256099942544/1033173712";
-    private string bannerAdUnitID = "ca-app-pub-3940256099942544/6300978111";
-    private string RewardVideoID = "ca-app-pub-3940256099942544/5224354917";
-    private string AppOpenID = "ca-app-pub-3940256099942544/3419835294";
+    private string InterstitialID = "ca-app-pub-4769515775892914/8342451882";
+    private string bannerAdUnitID = "ca-app-pub-4769515775892914/5049544879";
+    private string RewardVideoID = "ca-app-pub-4769515775892914/4594778562";
+    private string AppOpenID = "ca-app-pub-3940256099942544/3419835294"; // Test id
 
 #elif UNITY_IOS
-    private string InterstitialID = "ca-app-pub-3940256099942544/4411468910";
-    private string bannerAdUnitID = "ca-app-pub-3940256099942544/2934735716";
-    private string RewardVideoID = "ca-app-pub-3940256099942544/1712485313";
-    private string AppOpenID = "ca-app-pub-3940256099942544/5662855259";
+    private string InterstitialID = "ca-app-pub-4769515775892914/7412513595";
+    private string bannerAdUnitID = "ca-app-pub-4769515775892914/3551193582";
+    private string RewardVideoID = "ca-app-pub-4769515775892914/2351758607";
+    private string AppOpenID = "ca-app-pub-3940256099942544/5662855259"; // Test id
 #endif
 
     private InterstitialAd interstitial;
