@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: AJ
-  productName: Advance Parking Simulaiton
+  productName: Real Parking Simulator
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
@@ -258,7 +258,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 1
+  androidUseCustomKeystore: 0
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -274,7 +274,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 01d676ff6a22f4679a6c2f150a2ace79, type: 3}
+      m_Icon: {fileID: 2800000, guid: 72115eb0c628a410d98cb5524580a2e2, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -804,12 +804,12 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     : MOBILE_INPUT
-    Android: BCG_RCC
+    Android: BCG_RCC;gameanalytics_admob_enabled
     PS4: BCG_RCC
     Standalone: BCG_RCC
     WebGL: BCG_RCC
     XboxOne: BCG_RCC
-    iPhone: BCG_RCC
+    iPhone: BCG_RCC;gameanalytics_admob_enabled
     tvOS: BCG_RCC
   additionalCompilerArguments: {}
   platformArchitecture: {}

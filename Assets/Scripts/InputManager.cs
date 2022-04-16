@@ -119,20 +119,6 @@ public class InputManager : MonoBehaviour
             NextLevel();
     }
 
-    public void ClaimTheCar()
-    {
-        AdManager.Instance.OnRewardAdComplete = UnlockCar;
-        AdManager.Instance.ShowRewardAd();
-    }
-
-    private void UnlockCar()
-    {
-        var carToClaim = UnlockManager.Instance.GetUnlockCar();
-        UnlockManager.Instance.UnlockCar(carToClaim);
-        UnlockManager.Instance.SelectCar(carToClaim);
-        NextLevel();
-    }
-
     public void Restart()
     {
         SoundManager.Instance.PlaySound(SoundType.UIShowUp);

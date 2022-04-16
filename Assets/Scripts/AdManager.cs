@@ -36,13 +36,13 @@ public class AdManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        InitializeBanner();
     }
 
     void Start()
     {
         InitializeInterstitialAds();
         InitializeRewardedAd();
-        InitializeBanner();
         BannerShow();
         LoadAppOpenAd();
     }
@@ -172,6 +172,7 @@ public class AdManager : MonoBehaviour
 
     public void LoadAppOpenAd()
     {
+        return;
         AdRequest request = new AdRequest.Builder().Build();
 
         // Load an app open ad for portrait orientation
@@ -196,6 +197,7 @@ public class AdManager : MonoBehaviour
 
     private async Task ShowAppOpenAd()
     {
+        return;
         if(_isShowingAppOpenAd)
             return;
         
