@@ -162,17 +162,9 @@ public class InputManager : MonoBehaviour
         PlayerPrefs.SetInt("LevelCoin", CoinValue);
     }
 
-    public void PlayerWantsSecondChance()
+    public void PlayerWantsSkipLevel()
     {
-        AdManager.Instance.OnRewardAdComplete = GivePlayerSecondChance;
+        AdManager.Instance.OnRewardAdComplete = NextLevel;
         AdManager.Instance.ShowRewardAd();
-    }
-
-    private void GivePlayerSecondChance()
-    {
-        GameoverPanel.SetActive(false);
-        MobileDrag.SetActive(true);
-        WheelsPanel.SetActive(true);
-        GameManger.Instance.currentCar.GiveSecondChance();
     }
 }
