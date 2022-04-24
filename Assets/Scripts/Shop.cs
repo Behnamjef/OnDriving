@@ -9,7 +9,16 @@ public class Shop : MonoBehaviour
 
     public Transform Cars;
 
-    [SerializeField] private ShopCar[] ShopCars;
+    private ShopCar[] ShopCars
+    {
+        get
+        {
+            if (_shopCars.IsNullOrEmpty())
+                _shopCars = Cars.GetComponentsInChildren<ShopCar>(true);
+            return _shopCars;
+        }
+    }
+    private ShopCar[] _shopCars;
 
     private CarType _currentCarType;
     private int _currentCarIndex;
