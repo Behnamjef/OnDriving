@@ -13,9 +13,21 @@ public class GameManger : MonoBehaviour
 
     public static GameManger Instance { set; get; }
 
-    public MainCar[] CarPrefab;
+    
+    public Transform Cars;
 
-    public MainCar currentCar;
+    private MainCar[] CarPrefab
+    {
+        get
+        {
+            if (_carPrefab.IsNullOrEmpty())
+                _carPrefab = Cars.GetComponentsInChildren<MainCar>(true);
+            return _carPrefab;
+        }
+    }
+    private MainCar[] _carPrefab;
+
+    private MainCar currentCar;
     
     void Awake()
     {

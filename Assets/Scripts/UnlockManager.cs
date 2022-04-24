@@ -49,6 +49,10 @@ public class UnlockManager : SingletonBehaviour<UnlockManager>
 
     public CarType GetUnlockCar()
     {
+        if (!IsCarUnlock(CarType.Excavator2))
+            return CarType.Excavator2;
+        if (!IsCarUnlock(CarType.Excavator3))
+            return CarType.Excavator3;
         var lockedCars = UnlockCarOrder.Where(c => !IsCarUnlock(c)).ToArray();
         return lockedCars[Random.Range(0,lockedCars.Length)];
     }

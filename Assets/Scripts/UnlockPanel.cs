@@ -1,12 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using MagicOwl;
 using UnityEngine;
 
 public class UnlockPanel : CommonUIBehaviour
 {
-    [SerializeField] private List<ShopCar> ShopCars;
+    public Transform Cars;
+
+    private List<ShopCar> ShopCars
+    {
+        get
+        {
+            if (_shopCars.IsNullOrEmpty())
+                _shopCars = Cars.GetComponentsInChildren<ShopCar>(true).ToList();
+            return _shopCars;
+        }
+    }
+    private List<ShopCar> _shopCars;
+    
     private CarType _carToUnlock;
 
     private void Start()
