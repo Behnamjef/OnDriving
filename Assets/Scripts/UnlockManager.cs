@@ -49,6 +49,8 @@ public class UnlockManager : SingletonBehaviour<UnlockManager>
 
     public CarType GetUnlockCar()
     {
+        if (!IsCarUnlock(CarType.Excavator1))
+            return CarType.Excavator1;
         if (!IsCarUnlock(CarType.Excavator2))
             return CarType.Excavator2;
         if (!IsCarUnlock(CarType.Excavator3))
